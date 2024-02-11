@@ -25,5 +25,6 @@ void UserManager::printAllUsers(){
         cout << users[i].getLogin() << endl;
         cout << users[i].getPassword() << endl;
         cout << endl;
+
     }
 }
