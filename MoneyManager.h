@@ -17,6 +17,8 @@ private:
     vector <Money> expense;
     int Budget;
 public:
+    MoneyManager(string nameOfFileWithIncomes, string nameOfFileWithExpenses)
+    : fileWithMoney(nameOfFileWithIncomes,nameOfFileWithExpenses){};
 
 };
 

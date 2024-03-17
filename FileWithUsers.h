@@ -6,14 +6,14 @@
 #include <string>
 
 #include "Users.h"
-#include "StorageFile.h"
 #include "HelpingMethodes.h"
 
-class FileWithUsers : public StorageFile{
+class FileWithUsers {
 private:
-
+    Users getUserData();
+    int getAmountOfUsersFromFile();
 public:
-    FileWithUsers(string nameOfFileWithUsers) : StorageFile (nameOfFileWithUsers) {};
+    FileWithUsers(string nameOfFileWithUsers){};
     void addUserToFile(Users user);
     //void saveAllUsersToFile(vector <Users> &users);
     vector <Users> getUsersFromFile();

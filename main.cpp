@@ -33,7 +33,7 @@ int main(){
         } else if(budgetKeeper.someoneIsLoggedOn()){
 
             choice = budgetKeeper.selectAnOptionFromTheUserMenu();
-
+ /*
             switch (choice) {
             case '1':
                 budgetKeeper.addNewIncome();
@@ -65,7 +65,7 @@ int main(){
                 cout << endl << "Nie ma takiej opcji w menu." << endl << endl;
                 system ("pause");
                 break;
-            }
+            }*/
         }
     }
     return 0;

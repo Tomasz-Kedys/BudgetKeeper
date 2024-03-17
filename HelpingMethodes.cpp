@@ -33,3 +33,41 @@ char HelpingMethodes::getCharFromUser(){
     }
     return thing;
 }
+
+char HelpingMethodes::selectAnOptionFromTheUserMenu(){
+    char choice;
+
+    system ("cls");
+    cout << " >>> MENU UZYTKOWNIKA <<<" << endl;
+    cout << "---------------------------" << endl;
+    cout << "1. Dodaj adresata" << endl;
+    cout << "2. Wyszukaj po imieniu" << endl;
+    cout << "3. Wyszukaj po nazwisku" << endl;
+    cout << "4. Wyswietl adresatow" << endl;
+    cout << "5. Usun adresata" << endl;
+    cout << "6. Edytuj adresata" << endl;
+    cout << "---------------------------" << endl;
+    cout << "7. Zmien haslo" << endl;
+    cout << "8. Wyloguj sie" << endl;
+    cout << "---------------------------" << endl;
+    cout << "Twoj wybor: ";
+    choice = HelpingMethodes::getCharFromUser();
+
+    return choice;
+}
+
+string HelpingMethodes::getDataLine(){
+    string input;
+    cin.sync();
+    getline(cin, input);
+    return input;
+}
+
+string HelpingMethodes::changeFirstLetterToCapitalAndRestToSmall(string text){
+    if (!text.empty())
+    {
+        transform(text.begin(), text.end(), text.begin(), ::tolower);
+        text[0] = toupper(text[0]);
+    }
+    return text;
+}
