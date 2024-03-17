@@ -4,9 +4,11 @@
 
 using namespace std;
 
-class FileWithMoney : public StorageFile{
+class FileWithMoney {
+private:
 
-
+public:
+    FileWithMoney (string nameOfFileWithIncomes, string nameOfFileWithExpenses){};
 };
 
 #endif // FILEWITHMONEY_H
