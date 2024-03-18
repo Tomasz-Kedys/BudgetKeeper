@@ -99,6 +99,7 @@ int UserManager::loggingIn(){
         cout << "Nie ma zarejestrowanych uzytkownikow" << endl;
         system("pause");
     }
+    return 0;
 }
 
 bool UserManager::loginExists(string login){
