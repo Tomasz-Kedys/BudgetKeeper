@@ -13,8 +13,9 @@ void FileWithUsers::addUserToFile(Users user){
 
     xml.FindElem();
     xml.IntoElem();
-    xml.AddElem("Id",user.getId());
+    xml.AddElem("User");
     xml.IntoElem();
+    xml.AddElem("Id",user.getId());
     xml.AddElem("Name", user.getName());
     xml.AddElem("Surname", user.getSurname());
     xml.AddElem("Login", user.getLogin());
@@ -27,34 +28,29 @@ vector <Users> FileWithUsers::getUsersFromFile(){
     Users user;
 
     int amountOfUsers = getAmountOfUsersFromFile();
-    cout << amountOfUsers << endl;
-    system ("pause");
 
     vector <Users> users;
 
-    while(amountOfUsers > 0){
-        cout << "im in" << endl;
-        system("pause");
-        user = getUserData();
-        users.push_back(user);
-        --amountOfUsers;
-    }
+    users = getUserData(amountOfUsers);
 
     return users;
 }
 
-Users FileWithUsers::getUserData(){
+vector <Users> FileWithUsers::getUserData(int amountOfUsers){
     Users user;
     CMarkup xml;
+
+    vector <Users> users;
 
     xml.Load("Users.xml");
 
     xml.FindElem();
     xml.IntoElem();
-    xml.FindElem("id");
-    xml.IntoElem();
-        user.setId(atoi(MCD_2PCSZ(xml.GetData())));
+    while (amountOfUsers > 0){
+        xml.FindElem("User");
         xml.IntoElem();
+        xml.FindElem("Id");
+        user.setId(atoi(MCD_2PCSZ(xml.GetData())));
         xml.FindElem("Name");
         user.setName(xml.GetData());
         xml.FindElem("Surname");
@@ -63,18 +59,12 @@ Users FileWithUsers::getUserData(){
         user.setLogin(xml.GetData());
         xml.FindElem("Password");
         user.setPassword(xml.GetData());
-    xml.OutOfElem();
+        xml.OutOfElem();
+        users.push_back(user);
+        --amountOfUsers;
+    }
 
-    cout << "User data :" << endl;
-    cout << "Id : " << user.getId() << endl;
-    cout << "Name : " << user.getName() << endl;
-    cout << "Surname : " << user.getSurname() << endl;
-    cout << "Login : " << user.getLogin() << endl;
-    cout << "Password : " << user.getPassword() << endl;
-
-    system ("pause");
-
-    return user;
+    return users;
 }
 
 int FileWithUsers::getAmountOfUsersFromFile(){
@@ -90,7 +80,7 @@ int FileWithUsers::getAmountOfUsersFromFile(){
 
     xml.FindElem();
     xml.IntoElem();
-    while(xml.FindElem("Id")){
+    while(xml.FindElem("User")){
         ++amountOfUsers;
     }
 

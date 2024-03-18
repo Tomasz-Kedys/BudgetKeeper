@@ -10,7 +10,7 @@
 
 class FileWithUsers {
 private:
-    Users getUserData();
+    vector <Users> getUserData(int amountOfUsers);
     int getAmountOfUsersFromFile();
 public:
     FileWithUsers(string nameOfFileWithUsers){};
