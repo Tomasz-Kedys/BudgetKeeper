@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -21,6 +22,7 @@ public:
     static char selectAnOptionFromTheMoneyMenu();
     static string getNumber(string text, int charPos);
     static string changeFirstLetterToCapitalAndRestToSmall(string text);
+    static double correctTheNumber(double number);
 };
 
 #endif // HELPINGMETHODES_H

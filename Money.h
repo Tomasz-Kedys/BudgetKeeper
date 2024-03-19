@@ -5,9 +5,22 @@
 using namespace std;
 
 class Money{
-    int id, date;
-    float amount;
+private:
+    int transactionId;
+    string date;
+    double numericalValueOfIncomeOrExpense;
     string details;
+
+public:
+    void setId (int newId);
+    void setDate (string newDate);
+    void setAmount (double newAmount);
+    void setDetails (string newDetail);
+
+    int getId();
+    string getDate();
+    double getAmount();
+    string getDetails();
 };
 
 #endif // MONEY_H

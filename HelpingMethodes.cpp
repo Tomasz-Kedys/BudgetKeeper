@@ -40,12 +40,12 @@ char HelpingMethodes::selectAnOptionFromTheUserMenu(){
     system ("cls");
     cout << " >>> MENU UZYTKOWNIKA <<<" << endl;
     cout << "---------------------------" << endl;
-    cout << "1. Dodaj adresata" << endl;
-    cout << "2. Wyszukaj po imieniu" << endl;
-    cout << "3. Wyszukaj po nazwisku" << endl;
-    cout << "4. Wyswietl adresatow" << endl;
-    cout << "5. Usun adresata" << endl;
-    cout << "6. Edytuj adresata" << endl;
+    cout << "1. Dodaj wplate lub zarobek" << endl;
+    cout << "2. Dodaj wydatek lub wyplate" << endl;
+    cout << "3. Wyciag z biezacego miesiaca" << endl;
+    cout << "4. Wyciag z zeszlego miesiaca" << endl;
+    cout << "5. Wyciag z danego okresu" << endl;
+    cout << "6. Obecny stan konta" << endl;
     cout << "---------------------------" << endl;
     cout << "7. Zmien haslo" << endl;
     cout << "8. Wyloguj sie" << endl;
@@ -70,4 +70,39 @@ string HelpingMethodes::changeFirstLetterToCapitalAndRestToSmall(string text){
         text[0] = toupper(text[0]);
     }
     return text;
+}
+
+double HelpingMethodes::correctTheNumber(double number){
+    stringstream ss;
+    double doubleNumberWithSetPrecision;
+    ss << fixed << setprecision(2) << number;
+    ss >> doubleNumberWithSetPrecision;
+    return doubleNumberWithSetPrecision;
+}
+
+char HelpingMethodes::selectAnOptionFromTheMoneyMenu(){
+    char choice;
+
+    system ("cls");
+    cout << "    >>> MENU  DATY <<<" << endl;
+    cout << "---------------------------" << endl;
+    cout << "1. Dzisiaj" << endl;
+    cout << "2. Inna Data" << endl;
+    cout << "---------------------------" << endl;
+    cout << "Twoj wybor: ";
+    choice = HelpingMethodes::getCharFromUser();
+
+    return choice;
+}
+
+int HelpingMethodes::convertStringToInt(string number){
+    int convertedNumber = stoi(number);
+    return convertedNumber;
+}
+
+string HelpingMethodes::convertIntToString(int number){
+    ostringstream ss;
+    ss << number;
+    string str = ss.str();
+    return str;
 }
