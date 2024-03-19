@@ -33,28 +33,28 @@ int main(){
         } else if(budgetKeeper.someoneIsLoggedOn()){
 
             choice = budgetKeeper.selectAnOptionFromTheUserMenu();
- /*
+
             switch (choice) {
             case '1':
                 budgetKeeper.addNewIncome();
                 break;
             case '2':
-                budgetKeeper.addNewExpense();
+               //budgetKeeper.addNewExpense();
                 break;
             case '3':
-                budgetKeeper.printThisMonthBalance();
+                //budgetKeeper.printThisMonthBalance();
                 break;
             case '4':
-                budgetKeeper.printLastMonthBalance();
+                //budgetKeeper.printLastMonthBalance();
                 break;
             case '5':
-                budgetKeeper.printBalanceOfGivenPeriod();
+                //budgetKeeper.printBalanceOfGivenPeriod();
                 break;
             case '6':
-                budgetKeeper.printStatistics();
+                //budgetKeeper.printStatistics();
                 break;
             case '7':
-                budgetKeeper.changePasswordOfloggedInUser();
+                //budgetKeeper.changePasswordOfloggedInUser();
                 break;
             case '8':
                 budgetKeeper.logOutTheUser();
@@ -65,7 +65,7 @@ int main(){
                 cout << endl << "Nie ma takiej opcji w menu." << endl << endl;
                 system ("pause");
                 break;
-            }*/
+            }
         }
     }
     return 0;

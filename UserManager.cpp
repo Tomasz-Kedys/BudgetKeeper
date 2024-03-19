@@ -111,3 +111,13 @@ bool UserManager::loginExists(string login){
     }
     return false;
 }
+
+void UserManager::setIdOfLoggedUser(int newId){
+    if(idOfLoggedInUser > 0){
+        idOfLoggedInUser = newId;
+    }
+}
+
+int UserManager::getIdOfLoggedUser(){
+    return idOfLoggedInUser;
+}
