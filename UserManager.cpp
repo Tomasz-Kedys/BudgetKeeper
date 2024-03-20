@@ -1,7 +1,6 @@
 #include "UserManager.h"
 
 bool UserManager::someoneIsLoggedOn(){
-
     if(idOfLoggedInUser > 0){
         return true;
     }else
@@ -99,7 +98,6 @@ int UserManager::loggingIn(){
         cout << "Nie ma zarejestrowanych uzytkownikow" << endl;
         system("pause");
     }
-    return 0;
 }
 
 bool UserManager::loginExists(string login){

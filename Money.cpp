@@ -1,8 +1,12 @@
 #include "Money.h"
 
-void Money::setId (int newId){
-    if (newId >= 0)
-    transactionId = newId;
+void Money::setTransactionId (int newTransactionId){
+    if (newTransactionId >= 0)
+    transactionId = newTransactionId;
+}
+void Money::setUserId(int newUserId){
+    if(newUserId >= 0)
+    userId = newUserId;
 }
 void Money::setDate (string newDate){
     date = newDate;
@@ -13,8 +17,11 @@ void Money::setAmount (double newAmount){
 void Money::setDetails (string newDetail){
     details = newDetail;
 }
-int Money::getId(){
+int Money::getTransactionId(){
     return transactionId;
+}
+int Money::getUserId(){
+    return userId;
 }
 string Money::getDate(){
     return date;
