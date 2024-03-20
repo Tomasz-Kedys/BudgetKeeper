@@ -20,6 +20,7 @@ public:
     static char selectAnOptionFromTheMainMenu();
     static char selectAnOptionFromTheUserMenu();
     static char selectAnOptionFromTheMoneyMenu();
+    static char selectAnOptionFromTheTransactionMenu();
     static string getNumber(string text, int charPos);
     static string changeFirstLetterToCapitalAndRestToSmall(string text);
     static double correctTheNumber(double number);

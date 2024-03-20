@@ -1,37 +1,78 @@
 #include "MoneyManager.h"
 
-void MoneyManager::addNewIncome(){
+void MoneyManager::addNewTransaction(){
+    char choice = HelpingMethodes::selectAnOptionFromTheTransactionMenu();
 
-    Money money = getNewIncomeData();
+    Money money = getNewTransactionData(choice);
 
-    incomes.push_back(money);
-    fileWithMoney.addIncomeToFile(money);
+    switch(choice){
+    case '1':
+        incomes.push_back(money);
+        fileWithMoney.addIncomeToFile(money);
+        break;
+    case '2':
+        expenses.push_back(money);
+        fileWithMoney.addExpenseToFile(money);
+        break;
+    default:
+        cout << "Prosze wybrac miedzy opcja 1 lub 2 i wpisac poprawna wartosc transakcji." << endl;
+        system("pause");
+        break;
+    }
 
-    cout << endl << "Dodano wplate pomyslnie" << endl << endl;
+    cout << endl << "Dodano transakcje pomyslnie" << endl << endl;
     system ("pause");
 }
 
-Money MoneyManager::getNewIncomeData(){
-    double valueOfIncome = 0;
-    char choice;
+Money MoneyManager::getNewTransactionData(char choice){
+    double valueOfTransaction = 0;
     string details;
 
-    money.setId(getNewTransactionId());
+    money.setTransactionId(getNewTransactionId());
 
-    cout << "Podaj wyskosc wplaty : ";
-    cin >> valueOfIncome;
+    money.setUserId(LOGGEDIN_USER_ID);
 
-    if (valueOfIncome < 0){
-        cout << "Podana wartosc powinna byc wieksza od 0." << endl;
-        do{
-           cout << "Podaj wysokosc wplaty : ";
-           cin >> valueOfIncome;
-        }while(valueOfIncome <= 0);
-        valueOfIncome = HelpingMethodes::correctTheNumber(valueOfIncome);
-        money.setAmount(valueOfIncome);
+    if(choice == '1'){
+        cout << "Podaj wyskosc wplaty lub zarobku : ";
+        cin >> valueOfTransaction;
+
+        if (valueOfTransaction < 0){
+            cout << "Podana wartosc powinna byc wieksza od 0." << endl;
+            do{
+                cout << "Podaj wysokosc wplaty lub zarobku : ";
+                cin >> valueOfTransaction;
+            }while(valueOfTransaction <= 0);
+
+            valueOfTransaction = HelpingMethodes::correctTheNumber(valueOfTransaction);
+            money.setAmount(valueOfTransaction);
+        }else{
+            valueOfTransaction = HelpingMethodes::correctTheNumber(valueOfTransaction);
+            money.setAmount(valueOfTransaction);
+        }
+    }else if(choice == '2'){
+        cout << "Podaj wyskosc wyplaty lub wydatku : ";
+        cin >> valueOfTransaction;
+
+        if (valueOfTransaction > 0){
+            cout << "Podana wartosc powinna byc mniejsza od 0." << endl;
+            do{
+                cout << "Podaj wysokosc wyplaty lub wydatku  : ";
+                cin >> valueOfTransaction;
+            }while(valueOfTransaction >= 0);
+
+            valueOfTransaction = HelpingMethodes::correctTheNumber(valueOfTransaction);
+            money.setAmount(valueOfTransaction);
+        }else{
+            valueOfTransaction = HelpingMethodes::correctTheNumber(valueOfTransaction);
+            money.setAmount(valueOfTransaction);
+        }
     }else{
-        valueOfIncome = HelpingMethodes::correctTheNumber(valueOfIncome);
-        money.setAmount(valueOfIncome);
+        cout << "--------BLAD--------- " << endl;
+        cout << "Wybor nie zostal przekazany, nie mo¿na dodac transakcji poprawnie" << endl;
+        cout << "Funkcja nie moze byc uzyta poprawnie" << endl;
+        cout << "Program zostanie zamkniêty " << endl;
+        system("pause");
+        exit(0);
     }
 
     choice = HelpingMethodes::selectAnOptionFromTheMoneyMenu();
@@ -44,7 +85,7 @@ Money MoneyManager::getNewIncomeData(){
         money.setDate(getDateFromUser());
         break;
     default:
-        cout << "Please choose option 1 or 2 and set the date for income." << endl;
+        cout << "Prosze wybrac miedzy opcja 1 lub 2 i ustawic date transakcji." << endl;
         system("pause");
         break;
     }
@@ -57,7 +98,7 @@ Money MoneyManager::getNewIncomeData(){
 
     money.setDetails(details);
 
-//    cout << "ID : " << money.getId() << endl;
+//    cout << "ID : " << money.getTransactionId() << endl;
 //    cout << "Amount : " << money.getAmount() << endl;
 //    cout << "Date : " << money.getDate() << endl;
 //    cout << "Details : " << money.getDetails() << endl;
@@ -70,9 +111,9 @@ int MoneyManager::getNewTransactionId() {
     if (incomes.empty() == true && expenses.empty() == true){
         return 1;
     }else if (incomes.empty() == true && expenses.empty() == false){
-        return expenses.back().getId() + 1;
+        return expenses.back().getTransactionId() + 1;
     }else if (incomes.empty() == false && expenses.empty() == true){
-        return incomes.back().getId() + 1;
+        return incomes.back().getTransactionId() + 1;
     }else{
         cout << "Cos poszlo nie tak, nie nadano poprawnego Id" << endl;
         system("pause");

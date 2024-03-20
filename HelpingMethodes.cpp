@@ -40,15 +40,14 @@ char HelpingMethodes::selectAnOptionFromTheUserMenu(){
     system ("cls");
     cout << " >>> MENU UZYTKOWNIKA <<<" << endl;
     cout << "---------------------------" << endl;
-    cout << "1. Dodaj wplate lub zarobek" << endl;
-    cout << "2. Dodaj wydatek lub wyplate" << endl;
-    cout << "3. Wyciag z biezacego miesiaca" << endl;
-    cout << "4. Wyciag z zeszlego miesiaca" << endl;
-    cout << "5. Wyciag z danego okresu" << endl;
-    cout << "6. Obecny stan konta" << endl;
+    cout << "1. Dodaj nowa transakcje" << endl;
+    cout << "2. Wyciag z biezacego miesiaca" << endl;
+    cout << "3. Wyciag z zeszlego miesiaca" << endl;
+    cout << "4. Wyciag z danego okresu" << endl;
+    cout << "5. Obecny stan konta" << endl;
     cout << "---------------------------" << endl;
-    cout << "7. Zmien haslo" << endl;
-    cout << "8. Wyloguj sie" << endl;
+    cout << "6. Zmien haslo" << endl;
+    cout << "7. Wyloguj sie" << endl;
     cout << "---------------------------" << endl;
     cout << "Twoj wybor: ";
     choice = HelpingMethodes::getCharFromUser();
@@ -105,4 +104,19 @@ string HelpingMethodes::convertIntToString(int number){
     ss << number;
     string str = ss.str();
     return str;
+}
+
+char HelpingMethodes::selectAnOptionFromTheTransactionMenu(){
+    char choice;
+
+    system ("cls");
+    cout << "    >>> MENU  TRANSAKCJI <<<" << endl;
+    cout << "---------------------------" << endl;
+    cout << "1. Wplata lub przychod" << endl;
+    cout << "2. Wyplata lub wydatek" << endl;
+    cout << "---------------------------" << endl;
+    cout << "Twoj wybor: ";
+    choice = HelpingMethodes::getCharFromUser();
+
+    return choice;
 }

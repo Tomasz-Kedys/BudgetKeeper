@@ -6,18 +6,20 @@ using namespace std;
 
 class Money{
 private:
-    int transactionId;
+    int transactionId, userId;
     string date;
     double numericalValueOfIncomeOrExpense;
     string details;
 
 public:
-    void setId (int newId);
+    void setTransactionId (int newTransactionId);
+    void setUserId (int newUserId);
     void setDate (string newDate);
     void setAmount (double newAmount);
     void setDetails (string newDetail);
 
-    int getId();
+    int getTransactionId();
+    int getUserId();
     string getDate();
     double getAmount();
     string getDetails();

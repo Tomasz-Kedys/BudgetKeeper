@@ -19,19 +19,24 @@ private:
     vector <Money> incomes;
     vector <Money> expenses;
     int budget;
+    const int LOGGEDIN_USER_ID;
 
     int getNewTransactionId();
     string getTodaysDate();
     string getDateFromUser();
     string changeFormOfMonth(string monthWord);
-    Money getNewIncomeData();
+    Money getNewTransactionData(char choice);
     bool checkIfDateIsCorrect(string year, string month, string day);
 
 public:
-    MoneyManager(string nameOfFileWithIncomes, string nameOfFileWithExpenses)
-    : fileWithMoney(nameOfFileWithIncomes,nameOfFileWithExpenses){};
+    MoneyManager(string nameOfFileWithIncomes, string nameOfFileWithExpenses, int idOfLoggedInUser)
+    : fileWithMoney(nameOfFileWithIncomes,nameOfFileWithExpenses), LOGGEDIN_USER_ID(idOfLoggedInUser){
+        //incomes = fileWithMoney.getAllIncomesOfLoggedInUser(LOGGEDIN_USER_ID);
+        //expenses = fileWithMoney.getAllExpensesOfLoggedInUser(LOGGEDIN_USER_ID);
+        //budget = calculateBudget();
+    };
 
-    void addNewIncome();
+    void addNewTransaction();
     void clearVectorsWithMoney();
 
 };

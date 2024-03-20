@@ -36,27 +36,24 @@ int main(){
 
             switch (choice) {
             case '1':
-                budgetKeeper.addNewIncome();
+                budgetKeeper.addNewTransaction();
                 break;
             case '2':
-               //budgetKeeper.addNewExpense();
-                break;
-            case '3':
                 //budgetKeeper.printThisMonthBalance();
                 break;
-            case '4':
+            case '3':
                 //budgetKeeper.printLastMonthBalance();
                 break;
-            case '5':
+            case '4':
                 //budgetKeeper.printBalanceOfGivenPeriod();
                 break;
-            case '6':
+            case '5':
                 //budgetKeeper.printStatistics();
                 break;
-            case '7':
+            case '6':
                 //budgetKeeper.changePasswordOfloggedInUser();
                 break;
-            case '8':
+            case '7':
                 budgetKeeper.logOutTheUser();
                 cout << "Wylogowano cie" << endl;
                 system ("pause");
