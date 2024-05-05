@@ -28,9 +28,18 @@ Money MoneyManager::getNewTransactionData(char choice){
     double valueOfTransaction = 0;
     string details;
 
+    cout << "Hello getting data" << endl;
+    system("pause");
+
     money.setTransactionId(getNewTransactionId());
 
+    cout << "Hello got id" << endl;
+    system("pause");
+
     money.setUserId(LOGGEDIN_USER_ID);
+
+    cout << "Hello got user id" << endl;
+    system("pause");
 
     if(choice == '1'){
         cout << "Podaj wyskosc wplaty lub zarobku : ";
@@ -68,12 +77,15 @@ Money MoneyManager::getNewTransactionData(char choice){
         }
     }else{
         cout << "--------BLAD--------- " << endl;
-        cout << "Wybor nie zostal przekazany, nie mo¿na dodac transakcji poprawnie" << endl;
+        cout << "Wybor nie zostal przekazany, nie mozna dodac transakcji poprawnie" << endl;
         cout << "Funkcja nie moze byc uzyta poprawnie" << endl;
         cout << "Program zostanie zamkniêty " << endl;
         system("pause");
         exit(0);
     }
+
+    cout << "Hello got value" << endl;
+    system("pause");
 
     choice = HelpingMethodes::selectAnOptionFromTheMoneyMenu();
 
@@ -90,6 +102,9 @@ Money MoneyManager::getNewTransactionData(char choice){
         break;
     }
 
+    cout << "Hello got date" << endl;
+    system("pause");
+
     cout << "Dodatkowe informacje o transakcji : ";
     details = HelpingMethodes::getDataLine();
     if(money.getDetails().length() == 0){
@@ -97,6 +112,9 @@ Money MoneyManager::getNewTransactionData(char choice){
     }
 
     money.setDetails(details);
+
+    cout << "Hello got details" << endl;
+    system("pause");
 
 //    cout << "ID : " << money.getTransactionId() << endl;
 //    cout << "Amount : " << money.getAmount() << endl;
@@ -108,17 +126,37 @@ Money MoneyManager::getNewTransactionData(char choice){
 }
 
 int MoneyManager::getNewTransactionId() {
-    if (incomes.empty() == true && expenses.empty() == true){
+    // inaczej trzeba dostac ostatni id-k, najlepiej z pilku
+
+    if(incomesLastId() > expensesLastId()){
+        return incomesLastId() + 1;
+    }else if(incomesLastId() < expensesLastId()){
+        return expensesLastId() + 1;
+    }else if(incomesLastId() == 1 && expensesLastId() == 1){
         return 1;
-    }else if (incomes.empty() == true && expenses.empty() == false){
-        return expenses.back().getTransactionId() + 1;
-    }else if (incomes.empty() == false && expenses.empty() == true){
-        return incomes.back().getTransactionId() + 1;
     }else{
         cout << "Cos poszlo nie tak, nie nadano poprawnego Id" << endl;
         system("pause");
         return 0;
     }
+}
+
+int MoneyManager::incomesLastId(){
+    if(incomes.empty()){
+        return 1;
+    }else{
+        return incomes.back().getTransactionId();
+    }
+    return 0;
+}
+
+int MoneyManager::expensesLastId(){
+    if(expenses.empty()){
+        return 1;
+    }else{
+        return expenses.back().getTransactionId();
+    }
+    return 0;
 }
 
 string MoneyManager::getTodaysDate(){
@@ -220,6 +258,11 @@ bool MoneyManager::checkIfDateIsCorrect(string year, string month, string day){
     int yearNum = HelpingMethodes::convertStringToInt(year);
     int monthNum = HelpingMethodes::convertStringToInt(month);
     int dayNum = HelpingMethodes::convertStringToInt(day);
+
+    string todaysYear = getTodaysDate();
+    todaysYear = todaysYear.substr(0,4);
+    int todaysYearNum = HelpingMethodes::convertStringToInt(todaysYear);
+
     if((monthNum==2) && ((yearNum%400==0) || ((yearNum%100!=0)&&(yearNum%4==0))) && dayNum<30){
         return true;
     }else if(monthNum==2 && dayNum<29){
@@ -227,6 +270,8 @@ bool MoneyManager::checkIfDateIsCorrect(string year, string month, string day){
     }else if((monthNum==1 || monthNum==3 || monthNum==5 || monthNum==7 || monthNum==8 || monthNum==10 || monthNum==12) && dayNum<32){
         return true;
     }else if((monthNum==4 || monthNum==6 || monthNum==9 || monthNum==11) && dayNum<31){
+        return true;
+    }else if(yearNum <= todaysYearNum){
         return true;
     }else{
         return false;
@@ -237,4 +282,40 @@ void MoneyManager::clearVectorsWithMoney(){
     incomes.clear();
     expenses.clear();
     budget = 0;
+}
+
+double MoneyManager::calculateBudget(){ //niedziala
+    double allIncomesSum = 0;
+    double allExpensesSum = 0;
+
+    allIncomesSum = addAllIncomesFromVector();
+    allExpensesSum = addAllExpensesFromVector();
+
+    cout << endl << allIncomesSum + allExpensesSum << endl;
+    system("pause");
+
+    return allIncomesSum + allExpensesSum;
+}
+
+double MoneyManager::addAllIncomesFromVector(){ //Niedziala
+    double sum = 0;
+    int cos = 0;
+    vector <Money>::iterator itr = incomes.begin();
+
+    for (itr; itr <= incomes.end(); itr++){
+        sum += itr -> Money::getAmount();
+        cout << cos << endl;
+        cos++;
+    }
+    return sum;
+}
+
+double MoneyManager::addAllExpensesFromVector(){ //Niedziala
+    double sum = 0;
+    vector <Money>::iterator itr = expenses.begin();
+
+    for (itr; itr != expenses.end(); ++itr){
+        sum += itr -> Money::getAmount();
+    }
+    return sum;
 }
