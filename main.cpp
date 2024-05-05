@@ -31,11 +31,14 @@ int main(){
                 break;
             }
         } else if(budgetKeeper.someoneIsLoggedOn()){
-
+            cout << "Hello" << endl;
+            system("pause");
             choice = budgetKeeper.selectAnOptionFromTheUserMenu();
 
             switch (choice) {
             case '1':
+                cout << "WTF HAPPENING" << endl;
+                system("pause");
                 budgetKeeper.addNewTransaction();
                 break;
             case '2':

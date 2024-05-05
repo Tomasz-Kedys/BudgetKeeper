@@ -77,7 +77,7 @@ int UserManager::loggingIn(){
             if (itr -> Users::getLogin() == login) {
                 for (int tries = 3; tries > 0; tries--) {
                     cout << "Podaj haslo. Pozostalo prob: " << tries << ": ";
-                    password = HelpingMethodes::getDataLine ();
+                    password = HelpingMethodes::getDataLine();
 
                     if (itr -> Users::getPassword() == password) {
                         cout << endl << "Zalogowales sie." << endl << endl;

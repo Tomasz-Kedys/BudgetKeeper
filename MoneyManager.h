@@ -18,7 +18,7 @@ private:
     Money money;
     vector <Money> incomes;
     vector <Money> expenses;
-    int budget;
+    double budget;
     const int LOGGEDIN_USER_ID;
 
     int getNewTransactionId();
@@ -26,14 +26,19 @@ private:
     string getDateFromUser();
     string changeFormOfMonth(string monthWord);
     Money getNewTransactionData(char choice);
+    double calculateBudget();
+    double addAllIncomesFromVector();
+    double addAllExpensesFromVector();
     bool checkIfDateIsCorrect(string year, string month, string day);
+    int incomesLastId();
+    int expensesLastId();
 
 public:
     MoneyManager(string nameOfFileWithIncomes, string nameOfFileWithExpenses, int idOfLoggedInUser)
     : fileWithMoney(nameOfFileWithIncomes,nameOfFileWithExpenses), LOGGEDIN_USER_ID(idOfLoggedInUser){
-        //incomes = fileWithMoney.getAllIncomesOfLoggedInUser(LOGGEDIN_USER_ID);
-        //expenses = fileWithMoney.getAllExpensesOfLoggedInUser(LOGGEDIN_USER_ID);
-        //budget = calculateBudget();
+        incomes = fileWithMoney.getAllIncomesOfLoggedInUser(LOGGEDIN_USER_ID);
+        expenses = fileWithMoney.getAllExpensesOfLoggedInUser(LOGGEDIN_USER_ID);
+        budget = calculateBudget();
     };
 
     void addNewTransaction();
