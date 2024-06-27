@@ -7,19 +7,19 @@ void FileWithMoney::addIncomeToFile(Money money){
 
     if(!fileExist){
         xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
-        xml.AddElem("Incomes");
+        xml.AddElem("all_Incomes");
     }
 
     xml.FindElem();
     xml.IntoElem();
-    xml.AddElem("UserId",money.getUserId());
-    xml.IntoElem();
     xml.AddElem("Income");
     xml.IntoElem();
+    xml.AddElem("UserId", money.getUserId());
     xml.AddElem("Id", money.getTransactionId());
     xml.AddElem("Amount", money.getAmount());
     xml.AddElem("Date", money.getDate());
     xml.AddElem("Details", money.getDetails());
+
     xml.Save("Incomes.xml");
 }
 
@@ -30,15 +30,14 @@ void FileWithMoney::addExpenseToFile(Money money){
 
     if(!fileExist){
         xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
-        xml.AddElem("Expenses");
+        xml.AddElem("all_Expenses");
     }
 
     xml.FindElem();
     xml.IntoElem();
-    xml.AddElem("UserId",money.getUserId());
-    xml.IntoElem();
     xml.AddElem("Expense");
     xml.IntoElem();
+    xml.AddElem("UserId",money.getUserId());
     xml.AddElem("Id", money.getTransactionId());
     xml.AddElem("Amount", money.getAmount());
     xml.AddElem("Date", money.getDate());
@@ -56,26 +55,29 @@ vector <Money> FileWithMoney::getAllIncomesOfLoggedInUser(int idOfLoggedInUser){
 
     if(!fileExists){
         cout << "Plik nie isnieje!!!" << endl;
-        cout << "Program nie jest wstanie pobrac poprawnie danych !!!" << endl;
+        cout << "Program nie jest wstanie pobrac danych !!!" << endl << endl;
         system("pause");
     }else{
         xml.FindElem();
         xml.IntoElem();
-        xml.FindElem("UserId");
-        while(atoi(MCD_2PCSZ(xml.GetData())) == idOfLoggedInUser){
-            money.setUserId(atoi(MCD_2PCSZ(xml.GetData())));
-            xml.FindElem("Income");
-            xml.IntoElem();
-            xml.FindElem("Id");
-            money.setTransactionId(atoi(MCD_2PCSZ(xml.GetData())));
-            xml.FindElem("Amount");
-            money.setAmount(stod(MCD_2PCSZ(xml.GetData())));
-            xml.FindElem("Date");
-            money.setDate(xml.GetData());
-            xml.FindElem("Details");
-            money.setDetails(xml.GetData());
-            xml.OutOfElem();
-            incomes.push_back(money);
+        while(xml.FindElem("Income")){
+            xml.FindChildElem("UserId");
+            int userId = atoi(MCD_2PCSZ(xml.GetChildData()));
+            if(userId == idOfLoggedInUser){
+                xml.IntoElem();
+                money.setUserId(userId);
+                xml.FindElem("Id");
+                money.setTransactionId(atoi(MCD_2PCSZ(xml.GetData())));
+                xml.FindElem("Amount");
+                double amount = stod(MCD_2PCSZ(xml.GetData()));
+                money.setAmount(amount);
+                xml.FindElem("Date");
+                money.setDate(atoi(MCD_2PCSZ(xml.GetData())));
+                xml.FindElem("Details");
+                money.setDetails(xml.GetData());
+                xml.OutOfElem();
+                incomes.push_back(money);
+            }
         }
 
     }
@@ -93,28 +95,29 @@ vector <Money> FileWithMoney::getAllExpensesOfLoggedInUser(int idOfLoggedInUser)
 
     if(!fileExists){
         cout << "Plik nie isnieje!!!" << endl;
-        cout << "Program nie jest wstanie pobrac poprawnie danych !!!" << endl;
+        cout << "Program nie jest wstanie pobrac danych !!!" << endl;
         system("pause");
     }else{
-        xml.FindElem();
+         xml.FindElem();
         xml.IntoElem();
-        xml.FindElem("UserId");
-        while(atoi(MCD_2PCSZ(xml.GetData())) == idOfLoggedInUser){
-            money.setUserId(atoi(MCD_2PCSZ(xml.GetData())));
-            xml.FindElem("Expense");
-            xml.IntoElem();
-            xml.FindElem("Id");
-            money.setTransactionId(atoi(MCD_2PCSZ(xml.GetData())));
-            xml.FindElem("Amount");
-            money.setAmount(stod(MCD_2PCSZ(xml.GetData())));
-            xml.FindElem("Date");
-            money.setDate(xml.GetData());
-            xml.FindElem("Details");
-            money.setDetails(xml.GetData());
-            xml.OutOfElem();
-            expenses.push_back(money);
+        while(xml.FindElem("Expense")){
+            xml.FindChildElem("UserId");
+            int userId = atoi(MCD_2PCSZ(xml.GetChildData()));
+            if(userId == idOfLoggedInUser){
+                xml.IntoElem();
+                money.setUserId(userId);
+                xml.FindElem("Id");
+                money.setTransactionId(atoi(MCD_2PCSZ(xml.GetData())));
+                xml.FindElem("Amount");
+                money.setAmount(stod(MCD_2PCSZ(xml.GetData())));
+                xml.FindElem("Date");
+                money.setDate(atoi(MCD_2PCSZ(xml.GetData())));
+                xml.FindElem("Details");
+                money.setDetails(xml.GetData());
+                xml.OutOfElem();
+                expenses.push_back(money);
+            }
         }
     }
-
     return expenses;
 }

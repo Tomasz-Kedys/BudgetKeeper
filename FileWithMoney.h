@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Markup.h"
 #include <vector>
+#include <string>
 
 #include "Money.h"
 #include "HelpingMethodes.h"

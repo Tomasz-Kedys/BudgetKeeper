@@ -8,11 +8,12 @@ void Money::setUserId(int newUserId){
     if(newUserId >= 0)
     userId = newUserId;
 }
-void Money::setDate (string newDate){
+void Money::setDate (int newDate){
     date = newDate;
 }
-void Money::setAmount (double newAmount){
+bool Money::setAmount (double newAmount){
     numericalValueOfIncomeOrExpense = newAmount;
+    return true;
 }
 void Money::setDetails (string newDetail){
     details = newDetail;
@@ -23,7 +24,7 @@ int Money::getTransactionId(){
 int Money::getUserId(){
     return userId;
 }
-string Money::getDate(){
+int Money::getDate(){
     return date;
 }
 double Money::getAmount(){

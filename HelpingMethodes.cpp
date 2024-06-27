@@ -44,10 +44,11 @@ char HelpingMethodes::selectAnOptionFromTheUserMenu(){
     cout << "2. Wyciag z biezacego miesiaca" << endl;
     cout << "3. Wyciag z zeszlego miesiaca" << endl;
     cout << "4. Wyciag z danego okresu" << endl;
-    cout << "5. Obecny stan konta" << endl;
+    cout << "5. Wypisz transakcje" << endl;
+    cout << "6. Pokaz balans konta" << endl;
     cout << "---------------------------" << endl;
-    cout << "6. Zmien haslo" << endl;
-    cout << "7. Wyloguj sie" << endl;
+    cout << "7. Zmien haslo" << endl;
+    cout << "8. Wyloguj sie" << endl;
     cout << "---------------------------" << endl;
     cout << "Twoj wybor: ";
     choice = HelpingMethodes::getCharFromUser();
@@ -74,7 +75,7 @@ string HelpingMethodes::changeFirstLetterToCapitalAndRestToSmall(string text){
 double HelpingMethodes::correctTheNumber(double number){
     stringstream ss;
     double doubleNumberWithSetPrecision;
-    ss << fixed << setprecision(2) << number;
+    ss << fixed << setprecision(3) << number;
     ss >> doubleNumberWithSetPrecision;
     return doubleNumberWithSetPrecision;
 }
@@ -87,6 +88,7 @@ char HelpingMethodes::selectAnOptionFromTheMoneyMenu(){
     cout << "---------------------------" << endl;
     cout << "1. Dzisiaj" << endl;
     cout << "2. Inna Data" << endl;
+    cout << "3. Cofnij" << endl;
     cout << "---------------------------" << endl;
     cout << "Twoj wybor: ";
     choice = HelpingMethodes::getCharFromUser();
@@ -106,6 +108,11 @@ string HelpingMethodes::convertIntToString(int number){
     return str;
 }
 
+double HelpingMethodes::converStringToDouble(string number){
+    double convertedNumber = stod(number);
+    return convertedNumber;
+}
+
 char HelpingMethodes::selectAnOptionFromTheTransactionMenu(){
     char choice;
 
@@ -114,6 +121,7 @@ char HelpingMethodes::selectAnOptionFromTheTransactionMenu(){
     cout << "---------------------------" << endl;
     cout << "1. Wplata lub przychod" << endl;
     cout << "2. Wyplata lub wydatek" << endl;
+    cout << "3. Cofnij" << endl;
     cout << "---------------------------" << endl;
     cout << "Twoj wybor: ";
     choice = HelpingMethodes::getCharFromUser();

@@ -4,14 +4,18 @@
 
 using namespace std;
 
-int main(){
+int main()
+{
     BudgetKeeper budgetKeeper("Users.xml","Incomes.xml","Expenses.xml");
     char choice;
 
-    while (true) {
-        if (budgetKeeper.someoneIsLoggedOn() == false) {
+    while (true)
+    {
+        if (budgetKeeper.someoneIsLoggedOn() == false)
+        {
             choice = budgetKeeper.selectAnOptionFromTheMainMenu();
-            switch (choice) {
+            switch (choice)
+            {
             case '1':
                 budgetKeeper.registerAnUser();
                 break;
@@ -21,6 +25,7 @@ int main(){
             case '3':
                 budgetKeeper.printAllUsers();
                 system ("pause");
+                system ("cls");
                 break;
             case '9':
                 exit (0);
@@ -30,15 +35,14 @@ int main(){
                 system ("pause");
                 break;
             }
-        } else if(budgetKeeper.someoneIsLoggedOn()){
-            cout << "Hello" << endl;
-            system("pause");
+        }
+        else if(budgetKeeper.someoneIsLoggedOn())
+        {
             choice = budgetKeeper.selectAnOptionFromTheUserMenu();
 
-            switch (choice) {
+            switch (choice)
+            {
             case '1':
-                cout << "WTF HAPPENING" << endl;
-                system("pause");
                 budgetKeeper.addNewTransaction();
                 break;
             case '2':
@@ -48,15 +52,19 @@ int main(){
                 //budgetKeeper.printLastMonthBalance();
                 break;
             case '4':
-                //budgetKeeper.printBalanceOfGivenPeriod();
+                budgetKeeper.printBalanceOfGivenPeriod();
                 break;
             case '5':
-                //budgetKeeper.printStatistics();
+                budgetKeeper.printAllToConsole();
                 break;
             case '6':
-                //budgetKeeper.changePasswordOfloggedInUser();
+                budgetKeeper.printCurrentbudget();
+                system ("pause");
                 break;
             case '7':
+                //budgetKeeper.changePasswordOfloggedInUser();
+                break;
+            case '8':
                 budgetKeeper.logOutTheUser();
                 cout << "Wylogowano cie" << endl;
                 system ("pause");
