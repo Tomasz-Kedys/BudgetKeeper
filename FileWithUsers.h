@@ -10,12 +10,12 @@
 
 class FileWithUsers {
 private:
-    vector <Users> getUserData(int amountOfUsers);
+    vector <Users> getUserData();
     int getAmountOfUsersFromFile();
 public:
     FileWithUsers(string nameOfFileWithUsers){};
     void addUserToFile(Users user);
-    //void saveAllUsersToFile(vector <Users> &users);
+    void saveAllUsersToFile(vector <Users> &users);
     vector <Users> getUsersFromFile();
 };
 

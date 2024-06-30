@@ -100,7 +100,7 @@ double MoneyManager::getValueOfTransactionFromUser(char choice) {
         cout << "Podaj wyskosc wplaty lub zarobku (lub 'b' by wrocic to poprzedniego menu): ";
         while (cin >> input) {
             if (input == "b") {
-                return numeric_limits<double>::quiet_NaN(); // w teorii zwraca  wartosc not a number
+                return numeric_limits<double>::quiet_NaN(); // w teorii zwraca wartosc not a number
             }
             try {
                 valueOfTransaction = HelpingMethodes::converStringToDouble(input);
@@ -118,7 +118,7 @@ double MoneyManager::getValueOfTransactionFromUser(char choice) {
         cout << "Podaj wyskosc wyplaty lub wydatku : ";
         while (cin >> input) {
             if (input == "b") {
-                return numeric_limits<double>::quiet_NaN(); // w teorii zwraca  wartosc not a number
+                return numeric_limits<double>::quiet_NaN(); // w teorii zwraca wartosc not a number
             }
             try {
                 valueOfTransaction = HelpingMethodes::converStringToDouble(input);
@@ -241,11 +241,6 @@ void MoneyManager::printAllToConsole() {
         cout << "Date : " << setw(10) << itr2->Money::getDate() << endl;
         cout << "Details : " << setw(5) << itr2->Money::getDetails() << endl << endl;
     }
-    system("pause");
-}
-
-vector <Money> MoneyManager::sortVectorByDate(int bigger, int smaller, vector <Money> vectorThatNeedsSorting){
-
 }
 
 void MoneyManager::printBalanceOfGivenPeriod(){
@@ -274,18 +269,121 @@ void MoneyManager::printBalanceOfGivenPeriod(){
         return;
     }
 
+    sort(transactions.begin(), transactions.end(), [](Money& elierDate, Money& laterDate) {
+    return elierDate.getDate() < laterDate.getDate();
+    });
+
     if(firstDateGivenByUser > secondDateGivenByUser){
-        transactions = sortVectorByDate(firstDateGivenByUser, secondDateGivenByUser, transactions);
-
+        cout << "Wyciag z wszystkich transakcji pomiedzy : " << secondDateGivenByUser << " and " << firstDateGivenByUser << endl;
+        cout << "//////////////////////////////////////////////////////////////////////////////////////" << endl;
         for(;itr!=transactions.end();itr++){
-
+            int dateTemp = itr->Money::getDate();
+            if((dateTemp >= secondDateGivenByUser) && (dateTemp <= firstDateGivenByUser)){
+                cout << "USER ID : " << setw(3) << itr->Money::getUserId() << endl;
+                cout << "ID : " << setw(8) << itr->Money::getTransactionId() << endl;
+                cout << "Amount : " << setw(5) << itr->Money::getAmount() << endl;
+                cout << "Date : " << setw(10) << itr->Money::getDate() << endl;
+                cout << "Details : " << setw(5) << itr->Money::getDetails() << endl << endl;
+            }
         }
     }else if (firstDateGivenByUser < secondDateGivenByUser){
-
+        cout << "Wyciag z wszystkich transakcji pomiedzy : " << firstDateGivenByUser << " and " << secondDateGivenByUser << endl;
+        cout << "////////////////////////////////////////////////////////////////////////////////////" << endl;
+        for(;itr!=transactions.end();itr++){
+            int dateTemp = itr->Money::getDate();
+            if((dateTemp <= secondDateGivenByUser) && (dateTemp >= firstDateGivenByUser)){
+                cout << "USER ID : " << setw(3) << itr->Money::getUserId() << endl;
+                cout << "ID : " << setw(8) << itr->Money::getTransactionId() << endl;
+                cout << "Amount : " << setw(5) << itr->Money::getAmount() << endl;
+                cout << "Date : " << setw(10) << itr->Money::getDate() << endl;
+                cout << "Details : " << setw(5) << itr->Money::getDetails() << endl << endl;
+            }
+        }
     }else if (firstDateGivenByUser == secondDateGivenByUser){
         cout << "Obie podane daty sa takie same." << endl;
         cout << "Bilans z jednego dnia : " << endl;
-        cout << "--------------------------------------" << endl;
+        cout << "//////////////////////////////////" << endl;
+        for(;itr!=transactions.end();itr++){
+            int dateTemp = itr->Money::getDate();
+            if((dateTemp == secondDateGivenByUser) && (dateTemp == firstDateGivenByUser)){
+                cout << "USER ID : " << setw(3) << itr->Money::getUserId() << endl;
+                cout << "ID : " << setw(8) << itr->Money::getTransactionId() << endl;
+                cout << "Amount : " << setw(5) << itr->Money::getAmount() << endl;
+                cout << "Date : " << setw(10) << itr->Money::getDate() << endl;
+                cout << "Details : " << setw(5) << itr->Money::getDetails() << endl << endl;
+            }
+        }
+    }else{
+        cout << "Cos poszlonie tak ....." << endl;
+        cout << "Powrot do porzedniego Menu." << endl;
+        return;
+    }
+}
 
+void MoneyManager::printThisMonthBalance(){
+    int thisMonth = DatesManager::extractMonthFromGivenDate(DatesManager::getTodaysDate());
+
+    vector <Money> transactions;
+    transactions.clear();
+
+    transactions.insert(transactions.end(), incomes.begin(), incomes.end());
+    transactions.insert(transactions.end(), expenses.begin(), expenses.end());
+
+    vector <Money>::iterator itr = transactions.begin();
+
+    sort(transactions.begin(), transactions.end(), [](Money& elierDate, Money& laterDate) {
+    return elierDate.getDate() < laterDate.getDate();
+    });
+
+    cout << "Wyciag z wszystkich transakcji z miesiaca bierzacego : " << thisMonth << endl;
+    cout << "////////////////////////////////////////////////////////////" << endl;
+
+    if(!transactions.empty()){
+        for(;itr!=transactions.end();itr++){
+            int readDateMonth = DatesManager::extractMonthFromGivenDate(itr->Money::getDate());
+            if(thisMonth == readDateMonth){
+                cout << "USER ID : " << setw(3) << itr->Money::getUserId() << endl;
+                cout << "ID : " << setw(8) << itr->Money::getTransactionId() << endl;
+                cout << "Amount : " << setw(5) << itr->Money::getAmount() << endl;
+                cout << "Date : " << setw(10) << itr->Money::getDate() << endl;
+                cout << "Details : " << setw(5) << itr->Money::getDetails() << endl << endl;
+            }
+        }
+    }else{
+        cout << "W tym miesiacu nie przeprowadzono zadnych transakcji " << endl;
+    }
+}
+
+void MoneyManager::printLastMonthBalance(){
+    int lastMonth = DatesManager::extractMonthFromGivenDate(DatesManager::getTodaysDate())-1;
+
+    vector <Money> transactions;
+    transactions.clear();
+
+    transactions.insert(transactions.end(), incomes.begin(), incomes.end());
+    transactions.insert(transactions.end(), expenses.begin(), expenses.end());
+
+    vector <Money>::iterator itr = transactions.begin();
+
+    sort(transactions.begin(), transactions.end(), [](Money& elierDate, Money& laterDate) {
+    return elierDate.getDate() < laterDate.getDate();
+    });
+
+    cout << "Wyciag z wszystkich transakcji z zeszlego miesiaca : " << lastMonth << endl;
+    cout << "////////////////////////////////////////////////////////////" << endl;
+
+    if(!transactions.empty()){
+        for(;itr!=transactions.end();itr++){
+            int readDateMonth = DatesManager::extractMonthFromGivenDate(itr->Money::getDate());
+            if(lastMonth == readDateMonth){
+                cout << "USER ID : " << setw(3) << itr->Money::getUserId() << endl;
+                cout << "ID : " << setw(8) << itr->Money::getTransactionId() << endl;
+                cout << "Amount : " << setw(5) << itr->Money::getAmount() << endl;
+                cout << "Date : " << setw(10) << itr->Money::getDate() << endl;
+                cout << "Details : " << setw(5) << itr->Money::getDetails() << endl << endl;
+            }
+        }
+    }else{
+        cout << "W zeszlym miesiacu nie przeprowadzono zadnych transakcji " << endl;
     }
 }

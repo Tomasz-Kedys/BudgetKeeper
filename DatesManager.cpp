@@ -100,17 +100,30 @@ bool DatesManager::checkIfDateIsCorrect(string year, string month, string day) {
     int todaysYear = getTodaysDate();
     todaysYear = todaysYear / 10000;
 
-    if((monthNumber==2) && ((yearNumber%400==0) || ((yearNumber%100!=0)&&(yearNumber%4==0))) && dayNumber<30) {
-        return true;
-    } else if(monthNumber==2 && dayNumber<29) {
-        return true;
-    } else if((monthNumber==1 || monthNumber==3 || monthNumber==5 || monthNumber==7 || monthNumber==8 || monthNumber==10 || monthNumber==12) && dayNumber<32) {
-        return true;
-    } else if((monthNumber==4 || monthNumber==6 || monthNumber==9 || monthNumber==11) && dayNumber<31) {
-        return true;
-    } else if(yearNumber <= todaysYear) {
-        return true;
-    } else {
+    if(yearNumber <= todaysYear){
+        if((monthNumber==2) && ((yearNumber%400==0) || ((yearNumber%100!=0) && (yearNumber%4==0))) && dayNumber<30) {
+            return true;
+        } else if(monthNumber==2 && dayNumber<29) {
+            return true;
+        } else if((monthNumber==1 || monthNumber==3 || monthNumber==5 || monthNumber==7 || monthNumber==8 || monthNumber==10 || monthNumber==12) && dayNumber<32) {
+            return true;
+        } else if((monthNumber==4 || monthNumber==6 || monthNumber==9 || monthNumber==11) && dayNumber<31) {
+            return true;
+        } else {
+            return false;
+        }
+    }else if(yearNumber < (todaysYear - 1500)){
+        cout << right << "Albo podano zly rok, albo jestes wampirem." << endl;
+        cout << right << "Odpowiednie sluzby zostaly wlasnie powiadomione." << endl << endl;
+        cout << right << "Zyczymy milego dnia." << endl;
+        cout << right << "Z powazaniem, Lowcy Wampirow" << endl;
+        return false;
+    }else if (yearNumber < 1995) {
+        cout << "Program nie bedzie dzialal na liczbach z przed donominacji zlotego" << endl;
+        cout << "Prosze wprowadzic date pozniejsza niz 1995 rok" << endl;
+        return false;
+    }else{
+        cout << "Podany rok jescze nie sie nie zaczal " << endl;
         return false;
     }
 }
@@ -133,4 +146,11 @@ int DatesManager::changeDateToNum(string dateString) {
     int serialDateNum = HelpingMethodes::convertStringToInt(serialDate);
 
     return serialDateNum;
+}
+
+int DatesManager::extractMonthFromGivenDate(int date){
+    string givenDate = HelpingMethodes::convertIntToString(date);
+    string givenMonthString = givenDate.substr(4,2);
+
+    return HelpingMethodes::convertStringToInt(givenMonthString);
 }

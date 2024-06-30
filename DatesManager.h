@@ -20,6 +20,7 @@ private:
 public:
     static int getTodaysDate();
     static int getDateFromUser();
+    static int extractMonthFromGivenDate(int date);
 };
 
 #endif // DATESMANAGER_H

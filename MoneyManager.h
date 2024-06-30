@@ -31,7 +31,6 @@ private:
     double addAllExpensesFromVector();
     int incomesLastId();
     int expensesLastId();
-    vector <Money> sortVectorByDate(int bigger, int smaller, vector <Money> vectorThatNeedsSorting);
 
 public:
     MoneyManager(string nameOfFileWithIncomes, string nameOfFileWithExpenses, int idOfLoggedInUser)
@@ -45,6 +44,8 @@ public:
     double getBudget();
     void printAllToConsole();
     void printBalanceOfGivenPeriod();
+    void printThisMonthBalance();
+    void printLastMonthBalance();
 
 };
 
