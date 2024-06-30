@@ -35,6 +35,10 @@ Users UserManager::getNewUserData(){
         user.setLogin (login);
     } while (loginExists (user.getLogin() ) == true);
 
+    cout << "Podaj haslo: ";
+    cin >> password;
+    user.setPassword (password);
+
     cout << "Podaj Imie: ";
     name = HelpingMethodes::changeFirstLetterToCapitalAndRestToSmall(HelpingMethodes::getDataLine());
     user.setName(name);
@@ -42,10 +46,6 @@ Users UserManager::getNewUserData(){
     cout << "Poadj Nazwisko: ";
     surname = HelpingMethodes::changeFirstLetterToCapitalAndRestToSmall(HelpingMethodes::getDataLine());
     user.setSurname(surname);
-
-    cout << "Podaj haslo: ";
-    cin >> password;
-    user.setPassword (password);
 
     return user;
 }
@@ -101,6 +101,7 @@ int UserManager::loggingIn(){
         cout << "Nie ma zarejestrowanych uzytkownikow" << endl;
         system("pause");
     }
+    return 0;
 }
 
 bool UserManager::loginExists(string login){

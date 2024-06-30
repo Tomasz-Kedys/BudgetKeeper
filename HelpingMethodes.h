@@ -17,6 +17,7 @@ public:
     static string convertIntToString (int number);
     static int convertStringToInt(string number);
     static double converStringToDouble (string number);
+    static string converDoubleToString (double number);
     static string getDataLine();
     static char selectAnOptionFromTheMainMenu();
     static char selectAnOptionFromTheUserMenu();

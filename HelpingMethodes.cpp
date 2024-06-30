@@ -75,7 +75,7 @@ string HelpingMethodes::changeFirstLetterToCapitalAndRestToSmall(string text){
 double HelpingMethodes::correctTheNumber(double number){
     stringstream ss;
     double doubleNumberWithSetPrecision;
-    ss << fixed << setprecision(3) << number;
+    ss << fixed << setprecision(2) << number;
     ss >> doubleNumberWithSetPrecision;
     return doubleNumberWithSetPrecision;
 }
@@ -111,6 +111,13 @@ string HelpingMethodes::convertIntToString(int number){
 double HelpingMethodes::converStringToDouble(string number){
     double convertedNumber = stod(number);
     return convertedNumber;
+}
+
+string HelpingMethodes::converDoubleToString(double number){
+    ostringstream ss;
+    ss << number;
+    string str = ss.str();
+    return str;
 }
 
 char HelpingMethodes::selectAnOptionFromTheTransactionMenu(){
