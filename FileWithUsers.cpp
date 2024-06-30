@@ -42,8 +42,7 @@ vector <Users> FileWithUsers::getUserData(){
 
     if(!fileExists){
         cout << "Plik nie isnieje!!!" << endl;
-        cout << "Program nie jest wstanie pobrac poprawnie danych !!!" << endl;
-        system("pause");
+        cout << "Nie pobrano danych!!!" << endl;
     }else{
         xml.FindElem();
         xml.IntoElem();

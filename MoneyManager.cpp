@@ -33,18 +33,21 @@ void MoneyManager::addNewTransaction() {
 Money MoneyManager::getNewTransactionData(char choice) {
 
     double amount = getValueOfTransactionFromUser(choice);
-    int date = getDateSet();
 
     if (isnan(amount)) {
         cout << "Powracasz do poprzedniego menu ... " << endl;
         return money;
     }
 
+    int date = getDateSet();
+
     if (isnan(date)){
         cout << "Powracasz do poprzedniego menu ... " << endl;
         return money;
     }
 
+    money.setUserId(LOGGEDIN_USER_ID);
+    money.setTransactionId(getNewTransactionId());
     money.setAmount(amount);
     money.setDate(date);
     money.setDetails(getDetailsSet());
@@ -54,7 +57,6 @@ Money MoneyManager::getNewTransactionData(char choice) {
     cout << "Amount : " << money.getAmount() << endl;
     cout << "Date : " << money.getDate() << endl;
     cout << "Details : " << money.getDetails() << endl;
-    system("pause");
 
     return money;
 }
@@ -115,7 +117,7 @@ double MoneyManager::getValueOfTransactionFromUser(char choice) {
             }
         }
     } else if(choice == '2') {
-        cout << "Podaj wyskosc wyplaty lub wydatku : ";
+        cout << "Podaj wyskosc wyplaty lub wydatku (lub 'b' by wrocic to poprzedniego menu) : ";
         while (cin >> input) {
             if (input == "b") {
                 return numeric_limits<double>::quiet_NaN(); // w teorii zwraca wartosc not a number
@@ -335,8 +337,8 @@ void MoneyManager::printThisMonthBalance(){
     return elierDate.getDate() < laterDate.getDate();
     });
 
-    cout << "Wyciag z wszystkich transakcji z miesiaca bierzacego : " << thisMonth << endl;
-    cout << "////////////////////////////////////////////////////////////" << endl;
+    cout << "Wyciag z wszystkich transakcji z miesiaca bierzacego" << endl;
+    cout << "////////////////////////////////////////////////////" << endl;
 
     if(!transactions.empty()){
         for(;itr!=transactions.end();itr++){

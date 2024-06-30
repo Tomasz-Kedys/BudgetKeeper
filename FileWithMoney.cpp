@@ -16,7 +16,8 @@ void FileWithMoney::addIncomeToFile(Money money){
     xml.IntoElem();
     xml.AddElem("UserId", money.getUserId());
     xml.AddElem("Id", money.getTransactionId());
-    xml.AddElem("Amount", money.getAmount());
+    string amount = HelpingMethodes::converDoubleToString(money.getAmount());
+    xml.AddElem("Amount", amount);
     xml.AddElem("Date", money.getDate());
     xml.AddElem("Details", money.getDetails());
 
@@ -39,7 +40,8 @@ void FileWithMoney::addExpenseToFile(Money money){
     xml.IntoElem();
     xml.AddElem("UserId",money.getUserId());
     xml.AddElem("Id", money.getTransactionId());
-    xml.AddElem("Amount", money.getAmount());
+    string amount = HelpingMethodes::converDoubleToString(money.getAmount());
+    xml.AddElem("Amount", amount);
     xml.AddElem("Date", money.getDate());
     xml.AddElem("Details", money.getDetails());
     xml.Save("Expenses.xml");
@@ -55,8 +57,7 @@ vector <Money> FileWithMoney::getAllIncomesOfLoggedInUser(int idOfLoggedInUser){
 
     if(!fileExists){
         cout << "Plik nie isnieje!!!" << endl;
-        cout << "Program nie jest wstanie pobrac danych !!!" << endl << endl;
-        system("pause");
+        cout << "Nie pobrano danych!!!" << endl;
     }else{
         xml.FindElem();
         xml.IntoElem();
@@ -69,8 +70,7 @@ vector <Money> FileWithMoney::getAllIncomesOfLoggedInUser(int idOfLoggedInUser){
                 xml.FindElem("Id");
                 money.setTransactionId(atoi(MCD_2PCSZ(xml.GetData())));
                 xml.FindElem("Amount");
-                double amount = stod(MCD_2PCSZ(xml.GetData()));
-                money.setAmount(amount);
+                money.setAmount(HelpingMethodes::correctTheNumber(HelpingMethodes::converStringToDouble(MCD_2PCSZ(xml.GetData()))));
                 xml.FindElem("Date");
                 money.setDate(atoi(MCD_2PCSZ(xml.GetData())));
                 xml.FindElem("Details");
@@ -95,8 +95,7 @@ vector <Money> FileWithMoney::getAllExpensesOfLoggedInUser(int idOfLoggedInUser)
 
     if(!fileExists){
         cout << "Plik nie isnieje!!!" << endl;
-        cout << "Program nie jest wstanie pobrac danych !!!" << endl;
-        system("pause");
+        cout << "Nie pobrano danych!!!" << endl;
     }else{
          xml.FindElem();
         xml.IntoElem();
@@ -109,7 +108,7 @@ vector <Money> FileWithMoney::getAllExpensesOfLoggedInUser(int idOfLoggedInUser)
                 xml.FindElem("Id");
                 money.setTransactionId(atoi(MCD_2PCSZ(xml.GetData())));
                 xml.FindElem("Amount");
-                money.setAmount(stod(MCD_2PCSZ(xml.GetData())));
+                money.setAmount(HelpingMethodes::correctTheNumber(HelpingMethodes::converStringToDouble(MCD_2PCSZ(xml.GetData()))));
                 xml.FindElem("Date");
                 money.setDate(atoi(MCD_2PCSZ(xml.GetData())));
                 xml.FindElem("Details");
