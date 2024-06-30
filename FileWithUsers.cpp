@@ -26,19 +26,13 @@ void FileWithUsers::addUserToFile(Users user){
 
 vector <Users> FileWithUsers::getUsersFromFile(){
     vector <Users> users;
-    int amountOfUsers = getAmountOfUsersFromFile();
 
-    if(amountOfUsers > 0){
-      users = getUserData(amountOfUsers);
-    }else{
-        cout << "Nie udalo sie otworzyc pliku i popranie pobrac danych !!!" << endl;
-        system("pause");
-    }
+    users = getUserData();
 
     return users;
 }
 
-vector <Users> FileWithUsers::getUserData(int amountOfUsers){
+vector <Users> FileWithUsers::getUserData(){
     Users user;
     CMarkup xml;
 
@@ -53,8 +47,7 @@ vector <Users> FileWithUsers::getUserData(int amountOfUsers){
     }else{
         xml.FindElem();
         xml.IntoElem();
-        while (amountOfUsers > 0){
-            xml.FindElem("User");
+        while (xml.FindElem("User")){
             xml.IntoElem();
             xml.FindElem("Id");
             user.setId(atoi(MCD_2PCSZ(xml.GetData())));
@@ -68,27 +61,35 @@ vector <Users> FileWithUsers::getUserData(int amountOfUsers){
             user.setPassword(xml.GetData());
             xml.OutOfElem();
             users.push_back(user);
-            --amountOfUsers;
         }
     }
     return users;
 }
 
-int FileWithUsers::getAmountOfUsersFromFile(){
+void FileWithUsers::saveAllUsersToFile(vector <Users> &users){
     CMarkup xml;
-    int amountOfUsers = 0;
 
-    bool fileExists = xml.Load ("Users.xml");
+    bool fileExists = xml.Load("Users.xml");
 
-    if (!fileExists){
-        return amountOfUsers;
+    vector <Users>::iterator itr = users.begin();
+
+    if(!fileExists){
+        xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
+        xml.AddElem("Users");
     }else{
-        xml.FindElem();
+        xml.SetDoc("");
+        xml.AddElem("Users");
         xml.IntoElem();
-        while(xml.FindElem("User")){
-            ++amountOfUsers;
+        for(;itr!=users.end();itr++){
+            xml.AddElem("User");
+            xml.IntoElem();
+            xml.AddElem("Id", itr->Users::getId());
+            xml.AddElem("Name", itr->Users::getName());
+            xml.AddElem("Surname", itr->Users::getSurname());
+            xml.AddElem("Login", itr->Users::getLogin());
+            xml.AddElem("Password", itr->Users::getPassword());
+            xml.OutOfElem();
         }
     }
-
-    return amountOfUsers;
+    xml.Save("Users.xml");
 }

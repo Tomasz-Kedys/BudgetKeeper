@@ -46,23 +46,27 @@ int main()
                 budgetKeeper.addNewTransaction();
                 break;
             case '2':
-                //budgetKeeper.printThisMonthBalance();
+                budgetKeeper.printThisMonthBalance();
+                system ("pause");
                 break;
             case '3':
-                //budgetKeeper.printLastMonthBalance();
+                budgetKeeper.printLastMonthBalance();
+                system ("pause");
                 break;
             case '4':
                 budgetKeeper.printBalanceOfGivenPeriod();
+                system ("pause");
                 break;
             case '5':
                 budgetKeeper.printAllToConsole();
+                system ("pause");
                 break;
             case '6':
                 budgetKeeper.printCurrentbudget();
                 system ("pause");
                 break;
             case '7':
-                //budgetKeeper.changePasswordOfloggedInUser();
+                budgetKeeper.changePasswordOfloggedInUser();
                 break;
             case '8':
                 budgetKeeper.logOutTheUser();

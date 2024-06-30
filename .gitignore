@@ -1,8 +1,10 @@
 bin/
 obj/
-BudgetKeeper.*
+*.cscope_file_list
+*.depend
+*.layout
+*.uxf
 *.XML
 *.txt
 *.uxf
 *.mm
-Markup.*

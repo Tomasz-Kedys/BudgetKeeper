@@ -1,5 +1,9 @@
 #include "UserManager.h"
 
+void UserManager::saveAllUsersToFile(vector <Users> &users){
+    fileWithUsers.saveAllUsersToFile(users);
+}
+
 bool UserManager::someoneIsLoggedOn(){
     if(idOfLoggedInUser > 0){
         return true;
@@ -117,4 +121,20 @@ void UserManager::setIdOfLoggedUser(int newId){
 
 int UserManager::getIdOfLoggedUser(){
     return idOfLoggedInUser;
+}
+
+void UserManager::changeLoggedUserPassword(){
+    string newPassword = "";
+    cout << "Podaj nowe haslo : ";
+    newPassword = HelpingMethodes::getDataLine();
+
+    vector <Users>::iterator itr = users.begin();
+    for(; itr != users.end(); itr++){
+        if(itr->Users::getId() == getIdOfLoggedUser()){
+            itr->Users::setPassword(newPassword);
+            cout << "Haslo zostalo zmienione." << endl << endl;
+            system ("pause");
+        }
+    }
+    saveAllUsersToFile(users);
 }

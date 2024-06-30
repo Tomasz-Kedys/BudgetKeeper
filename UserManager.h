@@ -34,7 +34,7 @@ public:
     bool someoneIsLoggedOn();
     void setIdOfLoggedUser (int newId);
     int getIdOfLoggedUser();
-    void changeLoggedUserPass();
+    void changeLoggedUserPassword();
 };
 
 #endif // USERMANAGER_H
